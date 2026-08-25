@@ -1,2 +1,222 @@
 # A-little-question-for-you
 A website for someone what wants to ask there crush/girlfriend out
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A little question for you</title>
+<style>
+  :root{
+    --pink:#ff4f82; --pink2:#ff83a5; --deep:#e83d70; --ink:#202238; --muted:#77798b;
+    --cream:#fff8fb; --card:rgba(255,255,255,.9); --line:#f2cbd7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--ink); background:
+    radial-gradient(circle at 15% 15%, rgba(255,112,153,.20) 0 70px, transparent 72px),
+    radial-gradient(circle at 90% 82%, rgba(255,112,153,.16) 0 85px, transparent 87px),
+    linear-gradient(145deg,#fff0f5 0%,#fff9fb 48%,#fceef5 100%);
+    display:flex; justify-content:center; align-items:center; padding:18px; overflow-x:hidden;
+  }
+  .app{
+    width:min(430px,100%); min-height:760px; max-height:95vh; overflow:auto;
+    background:rgba(255,255,255,.55); border:1px solid rgba(255,255,255,.8);
+    border-radius:34px; box-shadow:0 25px 70px rgba(232,61,112,.16), 0 0 0 7px rgba(255,255,255,.45); position:relative;
+    padding:26px 22px 22px;
+  }
+  .heart{position:absolute; color:#ff91ad; font-size:25px; animation:float 4s ease-in-out infinite; text-shadow:0 5px 15px rgba(255,79,130,.18)}
+  .heart:after{content:'♥'; position:absolute; color:rgba(255,79,130,.10); font-size:42px; left:-8px; top:-8px; z-index:-1}
+  .h1{top:42px;right:34px}.h2{top:125px;left:24px;font-size:17px}.h3{bottom:95px;right:28px}
+  @keyframes float{50%{transform:translateY(-7px) rotate(4deg)}}
+  .screen{display:none; min-height:700px; flex-direction:column; animation:in .35s ease}
+  .screen.active{display:flex}
+  @keyframes in{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+  .top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+  .brand{font-weight:700;color:var(--pink);letter-spacing:.3px}
+  .hero{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;align-items:center}
+  .smallheart{font-size:50px;margin-bottom:12px}
+  h1{font-size:35px;line-height:1.1;margin:8px 0 15px;letter-spacing:-1.4px}
+  h2{font-size:27px;line-height:1.15;margin:22px 0 7px;letter-spacing:-.7px}
+  p{color:var(--muted);font-size:15px;line-height:1.5;margin:0 0 22px}
+  .accent{color:var(--pink)}
+  .buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:350px}
+  button{
+    border:0;border-radius:18px;padding:15px 18px;font-size:16px;font-weight:700;cursor:pointer;
+    transition:.18s transform,.18s box-shadow;
+  }
+  button:active{transform:scale(.97)}
+  .yes{background:linear-gradient(135deg,#ff4f82,#ff789d);color:white;box-shadow:0 10px 22px rgba(255,95,135,.25)}
+  .no{background:white;color:var(--ink);border:1px solid var(--line)}
+  .primary{width:100%;background:var(--ink);color:white;margin-top:18px}
+  .back{background:none;color:var(--muted);padding:7px 0;font-weight:600}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+  .choice{
+    background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:19px 10px;
+    text-align:center; cursor:pointer; transition:.18s;
+  }
+  .choice.selected{border-color:#ff6d94;box-shadow:0 10px 25px rgba(255,79,130,.16);background:#fff3f7}
+  .emoji{font-size:35px;display:block;margin-bottom:8px}.label{font-weight:700}
+  .field{margin-top:18px;text-align:left}.field label{display:block;font-size:13px;font-weight:700;margin:0 0 8px;color:#55586c}
+  input,textarea{
+    width:100%;border:1px solid var(--line);background:white;border-radius:15px;padding:14px;
+    font:inherit;color:var(--ink);outline:none;
+  }
+  input:focus,textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,95,135,.1)}
+  .summary{
+    background:white;border:1px solid var(--line);border-radius:22px;padding:8px 18px;margin:20px 0;
+  }
+  .row{display:flex;align-items:center;gap:13px;padding:14px 0;border-bottom:1px solid #f4e9ed}
+  .row:last-child{border-bottom:0}.icon{font-size:22px}.row small{display:block;color:#888;margin-bottom:2px}.row strong{font-size:16px}
+  .thank{font-size:56px;margin:5px 0 15px}
+  .tiny{font-size:12px;color:#a0a0ad;margin-top:13px}
+  .dots{display:flex;gap:7px;justify-content:center;margin-top:auto;padding-top:15px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#ddd}.dot.on{width:22px;background:var(--pink)}
+  @media(max-height:780px){.app{min-height:650px}.screen{min-height:590px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <span class="heart h1">♥</span><span class="heart h2">♡</span><span class="heart h3">♥</span>
+  <span class="heart" style="top:245px;right:18px;font-size:15px;animation-delay:1s">♡</span>
+  <span class="heart" style="bottom:235px;left:20px;font-size:17px;animation-delay:2s">♥</span>
+  <span class="heart" style="top:52%;left:10px;font-size:13px;animation-delay:.6s">♡</span>
+
+  <section class="screen active" id="s1">
+    <div class="top"><span class="brand">a little question...</span><span>1 / 4</span></div>
+    <div class="hero">
+      <div class="smallheart" style="color:#ff4f82;text-shadow:0 8px 25px rgba(255,79,130,.2)">♥</div>
+      <h1>Hey you,<br><span class="accent">will you go on a date with me?</span></h1>
+      <p>Nothing complicated. Just good food, good company, and a fun time.</p>
+      <div class="buttons">
+        <button class="yes" onclick="go(2)">♥ YES</button>
+        <button class="no" onclick="noThanks()">NO</button>
+      </div>
+      <div class="tiny">No pressure either way :)</div>
+    </div>
+  </section>
+
+  <section class="screen" id="s2">
+    <div class="top"><button class="back" onclick="go(1)">← Back</button><span>2 / 4</span></div>
+    <h2>Okay, let's plan the date.</h2>
+    <p>What sounds fun to you?</p>
+    <div class="choices">
+      <div class="choice" data-food="Pizza" onclick="selectFood(this)"><span class="emoji">🍕</span><span class="label">Pizza</span></div>
+      <div class="choice" data-food="Burgers" onclick="selectFood(this)"><span class="emoji">🍔</span><span class="label">Burgers</span></div>
+      <div class="choice" data-food="Mexican" onclick="selectFood(this)"><span class="emoji">🌮</span><span class="label">Mexican</span></div>
+      <div class="choice" data-food="Ice Cream" onclick="selectFood(this)"><span class="emoji">🍦</span><span class="label">Ice Cream</span></div>
+      <div class="choice" data-food="Mini Golf" onclick="selectFood(this)"><span class="emoji">⛳</span><span class="label">Mini Golf</span></div>
+      <div class="choice" data-food="Bowling" onclick="selectFood(this)"><span class="emoji">🎳</span><span class="label">Bowling</span></div>
+      <div class="choice" data-food="Movie" onclick="selectFood(this)"><span class="emoji">🎬</span><span class="label">Movie</span></div>
+      <div class="choice" data-food="Arcade" onclick="selectFood(this)"><span class="emoji">🕹️</span><span class="label">Arcade</span></div>
+      <div class="choice" data-food="Pickleball" onclick="selectFood(this)"><span class="emoji">🏓</span><span class="label">Pickleball</span></div>
+      <div class="choice" data-food="Italian" onclick="selectFood(this)"><span class="emoji">🍝</span><span class="label">Italian</span></div>
+      <div class="choice" data-food="Something casual" onclick="selectFood(this)"><span class="emoji">🍿</span><span class="label">Something casual</span></div>
+      <div class="choice" data-food="Other" onclick="selectOther()"><span class="emoji">✨</span><span class="label">Other</span></div>
+    </div>
+    <button class="primary" onclick="nextFromFood()">Next →</button>
+    <div class="dots"><i class="dot on"></i><i class="dot"></i><i class="dot"></i></div>
+  </section>
+
+  <section class="screen" id="s3other">
+    <div class="top"><button class="back" onclick="go(2)">← Back</button><span>3 / 5</span></div>
+    <h2>Something else? 💕</h2>
+    <p>Tell me what you'd like to do!</p>
+    <div class="field" style="margin-top:35px">
+      <label for="otherIdea">YOUR DATE IDEA</label>
+      <textarea id="otherIdea" rows="5" placeholder="Type your idea here..."></textarea>
+    </div>
+    <button class="primary" onclick="saveOtherIdea()">Next →</button>
+    <div class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></div>
+  </section>
+
+  <section class="screen" id="s3">
+    <div class="top"><button class="back" onclick="backFromDate()">← Back</button><span>4 / 5</span></div>
+    <h2>Pick a date & time.</h2>
+    <p>Choose whatever works best for you.</p>
+    <div class="field"><label for="date">DATE</label><input id="date" type="date"></div>
+    <div class="field"><label for="time">TIME</label><input id="time" type="time"></div>
+    <div class="field"><label for="note">ANYTHING ELSE? <span style="font-weight:400;color:#aaa">(optional)</span></label><textarea id="note" rows="3" placeholder="Maybe a place you want to go..."></textarea></div>
+    <button class="primary" onclick="finish()">Looks good →</button>
+    <div class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot"></i></div>
+  </section>
+
+  <section class="screen" id="s4">
+    <div class="top"><span class="brand">it's a plan ✨</span><span>5 / 5</span></div>
+    <div class="hero" style="justify-content:flex-start;padding-top:55px">
+      <div class="thank" style="color:#ff4f82;text-shadow:0 10px 30px rgba(255,79,130,.22)">♥</div>
+      <h1>Thank you!</h1>
+      <p>I can't wait. Here's what we picked:</p>
+      <div class="summary" style="width:100%;text-align:left">
+        <div class="row"><span class="icon">💡</span><div><small>Date idea</small><strong id="sumFood">—</strong></div></div>
+        <div class="row"><span class="icon">📅</span><div><small>Date</small><strong id="sumDate">—</strong></div></div>
+        <div class="row"><span class="icon">🕐</span><div><small>Time</small><strong id="sumTime">—</strong></div></div>
+      </div>
+      <p id="sumNote" style="font-size:14px"></p>
+      <div style="font-size:15px;font-weight:600;margin-top:4px">See you then :)</div>
+    </div>
+    <div class="dots"><i class="dot on"></i><i class="dot on"></i><i class="dot on"></i></div>
+  </section>
+</div>
+
+<script>
+let food = "";
+
+function go(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  window.scrollTo(0,0);
+}
+function noThanks(){
+  document.querySelector('#s1 .hero').innerHTML = `
+    <div class="smallheart" style="color:#ff4f82;text-shadow:0 8px 25px rgba(255,79,130,.2)">♥</div>
+    <h1>No worries :)</h1>
+    <p>Thanks for being honest. Have a great day!</p>
+    <button class="no" style="width:100%;max-width:350px" onclick="location.reload()">Back</button>`;
+}
+function selectFood(el){
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); food=el.dataset.food;
+}
+function nextFromFood(){
+  if(!food){alert("Pick a date idea first 😊");return;}
+  go(3);
+}
+function selectOther(){
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('selected'));
+  food="Other";
+  go('3other');
+}
+function saveOtherIdea(){
+  const idea=document.getElementById('otherIdea').value.trim();
+  if(!idea){alert("Type your date idea first 😊");return;}
+  food=idea;
+  go(3);
+}
+function backFromDate(){
+  if(food && !["Pizza","Burgers","Mexican","Ice Cream","Mini Golf","Bowling","Movie","Arcade","Pickleball","Italian","Something casual"].includes(food)){
+    go('3other');
+  } else {
+    go(2);
+  }
+}
+function finish(){
+  const date=document.getElementById('date').value;
+  const time=document.getElementById('time').value;
+  if(!date || !time){alert("Pick a date and time first 😊");return;}
+  const d=new Date(date+"T00:00:00");
+  document.getElementById('sumFood').textContent=food;
+  document.getElementById('sumDate').textContent=d.toLocaleDateString(undefined,{weekday:'short',month:'long',day:'numeric',year:'numeric'});
+  const [h,m]=time.split(':'); const t=new Date(); t.setHours(h,m);
+  document.getElementById('sumTime').textContent=t.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+  const note=document.getElementById('note').value.trim();
+  document.getElementById('sumNote').textContent=note ? "Note: "+note : "";
+  go(4);
+}
+const today=new Date();
+const iso=new Date(today.getTime()-today.getTimezoneOffset()*60000).toISOString().split('T')[0];
+document.getElementById('date').min=iso;
+</script>
+</body>
+</html>
